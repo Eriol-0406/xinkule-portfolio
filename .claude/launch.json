@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "xinkule-portfolio",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-l", "4173", "/Users/eriol/xinkule-portfolio"],
+      "port": 4173
+    }
+  ]
+}
