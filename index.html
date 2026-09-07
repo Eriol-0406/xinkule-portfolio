@@ -115,22 +115,49 @@
       background: linear-gradient(90deg, var(--mint), var(--accent));
     }
 
-    .project-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 0 0 0.4rem;
-    }
-
-    .project-title a {
-      color: var(--text);
+    .proj-card {
+      position: relative;
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
       text-decoration: none;
+      color: inherit;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    .project-title a:hover {
-      color: var(--accent);
+    .proj-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.3);
     }
 
-    .tag {
+    .proj-cover {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--mint), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .proj-cover span {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: #0f2620;
+      letter-spacing: -0.02em;
+      transition: transform 0.6s ease;
+    }
+
+    .proj-card:hover .proj-cover span {
+      transform: scale(1.14);
+    }
+
+    .proj-body {
+      padding: 1.5rem;
+    }
+
+    .proj-tag {
       display: inline-block;
       font-size: 0.72rem;
       text-transform: uppercase;
@@ -142,32 +169,51 @@
       margin-bottom: 0.75rem;
     }
 
-    .project-desc {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      margin: 0 0 1rem;
+    .proj-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      transition: color 0.3s ease;
     }
 
-    .visit {
+    .proj-card:hover .proj-title {
+      color: var(--accent-dim);
+    }
+
+    .proj-desc {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin: 0 0 1.1rem;
+    }
+
+    .proj-link {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
       font-size: 0.9rem;
       font-weight: 600;
       color: var(--accent);
-      text-decoration: none;
     }
 
-    .visit:hover {
-      color: var(--accent-dim);
+    .proj-link svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
     }
 
-    .note {
+    .proj-card:hover .proj-link svg {
+      transform: translateX(4px);
+    }
+
+    .proj-note {
       font-size: 0.82rem;
       color: var(--text-dim);
-      margin-top: 1rem;
-      padding-top: 0.9rem;
-      border-top: 1px dashed var(--border);
+      margin: -0.5rem 0 0;
+    }
+
+    .proj-grid {
+      display: grid;
+      gap: 1.25rem;
     }
 
     .mini-grid {
@@ -332,50 +378,74 @@
 
     <section>
       <h2>What's live here</h2>
-      <div class="card">
-        <div class="tag">Web app</div>
-        <p class="project-title">
-          <a href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">OTea / GreyOne Ordering</a>
-        </p>
-        <p class="project-desc">
-          A point-of-sale and order-taking web app built for OTea and GreyOne — a
-          friend's tea brands. Handles orders, till/drawer close-outs, receipt
-          printing, and sales reporting across both brands from one system.
-        </p>
-        <a class="visit" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">Visit
-          oteaxgreyone.xinkule.xyz →</a>
-        <div class="note">
+      <div class="proj-grid">
+        <a class="proj-card" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
+          <div class="proj-cover"><span>OG</span></div>
+          <div class="proj-body">
+            <div class="proj-tag">Web app</div>
+            <h3 class="proj-title">OTea / GreyOne Ordering</h3>
+            <p class="proj-desc">
+              A point-of-sale and order-taking web app built for OTea and GreyOne — a
+              friend's tea brands. Handles orders, till/drawer close-outs, receipt
+              printing, and sales reporting across both brands from one system.
+            </p>
+            <span class="proj-link">
+              Visit oteaxgreyone.xinkule.xyz
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </div>
+        </a>
+        <p class="proj-note">
           Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
           maintain the ordering system for them.
-        </div>
+        </p>
       </div>
     </section>
 
     <section>
       <h2>Ventures I'm part of</h2>
-      <div class="card">
-        <div class="tag">Web3 hub</div>
-        <p class="project-title">
-          <a href="https://ccacc.io" target="_blank" rel="noopener">CCACC — Crypto, Compliance &amp; Corporate Center</a>
-        </p>
-        <p class="project-desc">
-          An innovation hub and Web3 ecosystem builder based in Kuala Lumpur —
-          compliance, back-office solutions, and workspace incubation connecting the
-          local crypto industry globally.
-        </p>
-        <a class="visit" href="https://ccacc.io" target="_blank" rel="noopener">Visit ccacc.io →</a>
-      </div>
-      <div class="card" style="margin-top: 1.25rem;">
-        <div class="tag">Festival</div>
-        <p class="project-title">
-          <a href="https://chainvibe.org" target="_blank" rel="noopener">ChainVibe KL 2026</a>
-        </p>
-        <p class="project-desc">
-          Kuala Lumpur's Web3 x AI Experience Hub and culture festival — main-stage
-          keynotes, live "vibe coding" builds, founder floors, and rooftop
-          culture/gaming events. July 25–26, 2026 at Millerz Square, Sky Garden.
-        </p>
-        <a class="visit" href="https://chainvibe.org" target="_blank" rel="noopener">Visit chainvibe.org →</a>
+      <div class="proj-grid">
+        <a class="proj-card" href="https://ccacc.io" target="_blank" rel="noopener">
+          <div class="proj-cover"><span>CC</span></div>
+          <div class="proj-body">
+            <div class="proj-tag">Web3 hub</div>
+            <h3 class="proj-title">CCACC — Crypto, Compliance &amp; Corporate Center</h3>
+            <p class="proj-desc">
+              An innovation hub and Web3 ecosystem builder based in Kuala Lumpur —
+              compliance, back-office solutions, and workspace incubation connecting
+              the local crypto industry globally.
+            </p>
+            <span class="proj-link">
+              Visit ccacc.io
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </div>
+        </a>
+        <a class="proj-card" href="https://chainvibe.org" target="_blank" rel="noopener">
+          <div class="proj-cover"><span>CV</span></div>
+          <div class="proj-body">
+            <div class="proj-tag">Festival</div>
+            <h3 class="proj-title">ChainVibe KL 2026</h3>
+            <p class="proj-desc">
+              Kuala Lumpur's Web3 x AI Experience Hub and culture festival — main-stage
+              keynotes, live "vibe coding" builds, founder floors, and rooftop
+              culture/gaming events. July 25–26, 2026 at Millerz Square, Sky Garden.
+            </p>
+            <span class="proj-link">
+              Visit chainvibe.org
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+          </div>
+        </a>
       </div>
     </section>
 
