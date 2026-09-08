@@ -289,17 +289,13 @@
     }
 
     .avatar {
-      width: 56px;
-      height: 56px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--mint), var(--accent));
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #0f2620;
-      font-weight: 700;
-      font-size: 1.3rem;
+      object-fit: contain;
+      padding: 6px;
     }
 
     .about-name {
@@ -462,7 +458,7 @@
     <section>
       <h2>Hackathons &amp; side builds</h2>
       <div class="mini-grid">
-        <a class="mini-card" href="https://github.com/Eriol-0406/Sonar-Dev3pack-V1" target="_blank" rel="noopener">
+        <a class="mini-card" href="https://sonar-dev3pack-v1.vercel.app/" target="_blank" rel="noopener">
           <p class="mini-title">Sonar</p>
           <p class="mini-desc">
             Anti-scam tool — paste a wallet address or URL to check for scam
@@ -510,7 +506,7 @@
     <section>
       <h2>About</h2>
       <div class="card about">
-        <div class="avatar">EL</div>
+        <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="88" height="88">
         <div>
           <p class="about-name">Eriol Loi</p>
           <p class="about-role">Developer, researcher, and generally curious about whatever's next</p>
