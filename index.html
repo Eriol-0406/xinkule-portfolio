@@ -365,30 +365,31 @@
       letter-spacing: 0.02em;
     }
 
-    /* split-word section bookends */
+    /* section heading: the two word-halves sit side by side on one line,
+       compact, centered — matching the reference (Ab/UT, Portf/Lio, c/ntact
+       all render on a single row each, not stacked as top/bottom bookends) */
     .split-section {
       position: relative;
-      padding: 5rem 0;
+      padding: 2.5rem 0;
       border-top: 1px solid var(--border);
     }
 
+    .split-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.25em;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
     .split-word {
-      display: block;
       font-family: "Oswald", sans-serif;
       font-weight: 700;
-      font-size: clamp(2.75rem, 11vw, 6.5rem);
+      font-size: clamp(2.25rem, 8vw, 4.75rem);
       line-height: 0.85;
       letter-spacing: -0.02em;
       color: var(--accent-text);
-    }
-
-    .split-word.top {
-      text-align: left;
-    }
-
-    .split-word.bottom {
-      text-align: right;
-      margin-top: 2.5rem;
     }
 
     /* scroll-triggered reveal, wired up via IntersectionObserver in JS */
@@ -398,16 +399,20 @@
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .split-word.top.reveal {
-      transform: translateX(-32px);
+    .split-heading.reveal .split-word:first-child {
+      transform: translateX(-24px);
     }
 
-    .split-word.bottom.reveal {
-      transform: translateX(32px);
+    .split-heading.reveal .split-word:last-child {
+      transform: translateX(24px);
     }
 
     .reveal.in-view {
       opacity: 1;
+      transform: none;
+    }
+
+    .reveal.in-view .split-word {
       transform: none;
     }
 
@@ -445,7 +450,7 @@
 
     .split-content {
       max-width: 720px;
-      margin: 2rem auto;
+      margin: 0 auto;
     }
 
     .group-label {
@@ -766,7 +771,10 @@
     </header>
 
     <section class="split-section" id="about">
-      <span class="split-word top display reveal">AB</span>
+      <div class="split-heading reveal">
+        <span class="split-word display">AB</span>
+        <span class="split-word display">OUT</span>
+      </div>
       <div class="split-content reveal">
         <div class="about">
           <span class="avatar-frame">
@@ -792,11 +800,13 @@
           </div>
         </div>
       </div>
-      <span class="split-word bottom display reveal">OUT</span>
     </section>
 
     <section class="split-section" id="work">
-      <span class="split-word top display reveal">WO</span>
+      <div class="split-heading reveal">
+        <span class="split-word display">WO</span>
+        <span class="split-word display">RK</span>
+      </div>
       <div class="split-content reveal">
         <h3 class="group-label">Live app</h3>
         <div class="proj-grid">
@@ -901,11 +911,13 @@
           </a>
         </div>
       </div>
-      <span class="split-word bottom display reveal">RK</span>
     </section>
 
     <section class="split-section" id="contact">
-      <span class="split-word top display reveal">CONTA</span>
+      <div class="split-heading reveal">
+        <span class="split-word display">CONTA</span>
+        <span class="split-word display">CT</span>
+      </div>
       <div class="split-content reveal">
         <div class="links">
           <a href="mailto:eriolloi1118@gmail.com" title="Email">
@@ -948,7 +960,6 @@
           </a>
         </div>
       </div>
-      <span class="split-word bottom display reveal">CT</span>
     </section>
 
     <footer>
