@@ -48,6 +48,8 @@
     body {
       background:
         radial-gradient(600px 320px at 15% -10%, color-mix(in srgb, var(--mint) 35%, transparent), transparent 70%),
+        radial-gradient(500px 500px at 100% 15%, color-mix(in srgb, var(--mint) 12%, transparent), transparent 70%),
+        radial-gradient(600px 400px at -5% 85%, color-mix(in srgb, var(--mint) 14%, transparent), transparent 70%),
         var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
@@ -55,9 +57,15 @@
     }
 
     .wrap {
-      max-width: 720px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 4rem 1.5rem 3rem;
+      padding: 4rem 2rem 3rem;
+    }
+
+    @media (min-width: 720px) {
+      .wrap {
+        padding: 5rem 3rem 4rem;
+      }
     }
 
     header.hero {
@@ -208,17 +216,19 @@
     .proj-note {
       font-size: 0.82rem;
       color: var(--text-dim);
-      margin: -0.5rem 0 0;
+      margin: 0.9rem 0 0;
     }
 
     .proj-grid {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.25rem;
+      align-items: start;
     }
 
     .mini-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
     }
 
@@ -398,11 +408,11 @@
             </span>
           </div>
         </a>
-        <p class="proj-note">
-          Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
-          maintain the ordering system for them.
-        </p>
       </div>
+      <p class="proj-note">
+        Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
+        maintain the ordering system for them.
+      </p>
     </section>
 
     <section>
