@@ -11,6 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('xinkule-theme');
+        if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+      } catch (e) { }
+    })();
+  </script>
   <style>
     :root {
       color-scheme: dark;
@@ -21,6 +29,32 @@
       --border: #2a302c;
       --mint: #c0ffee;
       --ink: #0d0f0e;
+      /* pale mint reads fine as text on the dark theme's near-black bg, but is
+         too low-contrast on the light theme's pale bg — accent-text is the
+         readable stand-in used everywhere mint colors actual copy/letters,
+         while --mint itself stays reserved for solid fills (pills, badges,
+         covers) where contrast comes from the dark pupil/ink on top, not
+         from the fill color against the page background */
+      --accent-text: var(--mint);
+      --theme-transition: 0.3s ease;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f4fbf7;
+      --card: #ffffff;
+      --text: #0d0f0e;
+      --text-dim: #55605a;
+      --border: #d8e5df;
+      --accent-text: #146b4c;
+    }
+
+    body,
+    .card,
+    .proj-card,
+    .mini-card,
+    .links a {
+      transition: background-color var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
     }
 
     * {
@@ -88,7 +122,7 @@
     }
 
     .topnav a:hover {
-      color: var(--mint);
+      color: var(--accent-text);
     }
 
     /* hero */
@@ -110,7 +144,7 @@
       font-size: 1em;
       line-height: 0.85;
       letter-spacing: -0.02em;
-      color: var(--mint);
+      color: var(--accent-text);
       white-space: nowrap;
       opacity: 0;
       animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -156,14 +190,23 @@
       }
     }
 
-    /* the "O" rendered as a tracking eye, mirroring the reference site */
+    /* the "O" rendered as a wide toggle-switch pill, mirroring the reference site —
+       doubles as the light/dark theme toggle, matching how clicking it there
+       actually swaps the whole page's colors */
     .eye {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 0.68em;
-      height: 0.68em;
       flex-shrink: 0;
+      width: 1.9em;
+      height: 0.72em;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
       opacity: 0;
       transform: scaleY(0);
       animation: eye-open 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
@@ -185,21 +228,27 @@
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
+      border-radius: 999px;
       background: var(--mint);
       overflow: hidden;
     }
 
     .eye-pupil {
       position: absolute;
-      width: 30%;
-      height: 30%;
-      top: 50%;
-      left: 50%;
+      width: 0.72em;
+      height: 0.72em;
+      top: 0;
+      left: 0;
       border-radius: 50%;
       background: var(--ink);
-      transform: translate(-50%, -50%);
-      transition: transform 0.12s ease-out;
+      transform: translateX(0);
+      transition: transform 0.15s ease-out;
+    }
+
+    .eye:focus-visible {
+      outline: 2px solid var(--text);
+      outline-offset: 4px;
+      border-radius: 999px;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -308,7 +357,7 @@
     }
 
     .hero-sub .domain {
-      color: var(--mint);
+      color: var(--accent-text);
       font-family: "SF Mono", ui-monospace, Menlo, monospace;
       font-size: 0.85rem;
       display: block;
@@ -330,7 +379,7 @@
       font-size: clamp(2.75rem, 11vw, 6.5rem);
       line-height: 0.85;
       letter-spacing: -0.02em;
-      color: var(--mint);
+      color: var(--accent-text);
     }
 
     .split-word.top {
@@ -427,7 +476,7 @@
 
     .proj-card:hover {
       transform: translateY(-6px);
-      border-color: var(--mint);
+      border-color: var(--accent-text);
     }
 
     .proj-cover {
@@ -477,7 +526,7 @@
     }
 
     .proj-card:hover .proj-title {
-      color: var(--mint);
+      color: var(--accent-text);
     }
 
     .proj-desc {
@@ -492,7 +541,7 @@
       gap: 0.4rem;
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--mint);
+      color: var(--accent-text);
     }
 
     .proj-link svg {
@@ -535,7 +584,7 @@
     }
 
     .mini-card:hover {
-      border-color: var(--mint);
+      border-color: var(--accent-text);
       transform: translateY(-2px);
     }
 
@@ -563,7 +612,7 @@
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.03em;
-      color: var(--mint);
+      color: var(--accent-text);
       background: transparent;
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -641,7 +690,7 @@
     }
 
     .links a:hover {
-      border-color: var(--mint);
+      border-color: var(--accent-text);
       color: var(--ink);
       background: var(--mint);
       transform: translateY(-2px);
@@ -684,11 +733,11 @@
         <span class="name-piece">E</span>
         <span class="name-line"></span>
         <span class="name-piece">RI</span>
-        <span class="eye" aria-hidden="true">
+        <button type="button" class="eye theme-toggle" aria-label="Toggle light/dark theme">
           <span class="eye-white">
             <span class="eye-pupil"></span>
           </span>
-        </span>
+        </button>
         <span class="name-piece">L</span>
       </div>
       <div class="marquee">
@@ -700,11 +749,11 @@
       <div class="name-row row-bottom">
         <span class="name-piece">L</span>
         <span class="name-cluster">
-          <span class="eye" aria-hidden="true">
+          <button type="button" class="eye theme-toggle" aria-label="Toggle light/dark theme">
             <span class="eye-white">
               <span class="eye-pupil"></span>
             </span>
-          </span>
+          </button>
           <span class="name-piece">I</span>
         </span>
       </div>
@@ -961,19 +1010,32 @@
             avatarImg.style.transform = 'translate(' + (dx * 7) + 'px, ' + (dy * 7) + 'px)';
           }
           eyePupils.forEach(function (pupil) {
-            var r = pupil.parentElement.getBoundingClientRect();
-            var cx = r.left + r.width / 2;
-            var cy = r.top + r.height / 2;
-            var dist = Math.hypot(e.clientX - cx, e.clientY - cy) || 1;
-            var maxShift = r.width * 0.22;
-            var shiftX = Math.max(-maxShift, Math.min(maxShift, ((e.clientX - cx) / dist) * Math.min(dist / 6, maxShift)));
-            var shiftY = Math.max(-maxShift, Math.min(maxShift, ((e.clientY - cy) / dist) * Math.min(dist / 6, maxShift)));
-            pupil.style.transform = 'translate(calc(-50% + ' + shiftX + 'px), calc(-50% + ' + shiftY + 'px))';
+            // pill-shaped track: the knob slides left-right along it toward the cursor,
+            // like a toggle switch's thumb — not a small circular pupil anymore
+            var track = pupil.parentElement.getBoundingClientRect();
+            var travel = Math.max(0, track.width - track.height);
+            var fraction = Math.max(0, Math.min(1, (e.clientX - track.left) / track.width));
+            pupil.style.transform = 'translateX(' + (fraction * travel) + 'px)';
           });
           ticking = false;
         });
       });
     }
+
+    // the "O" pills are the theme toggle, same as the reference site
+    document.querySelectorAll('.theme-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        try {
+          localStorage.setItem('xinkule-theme', isLight ? 'dark' : 'light');
+        } catch (e) { }
+      });
+    });
   </script>
 </body>
 
