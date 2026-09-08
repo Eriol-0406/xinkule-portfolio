@@ -7,32 +7,20 @@
   <title>xinkule.xyz — Eriol Loi</title>
   <meta name="description"
     content="xinkule.xyz — Eriol Loi's testing ground for web products: the OTea/GreyOne ordering app, CCACC, ChainVibe KL, and hackathon builds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #f6f7f6;
-      --bg-alt: #eceeec;
-      --card: #ffffff;
-      --text: #1c1e1c;
-      --text-dim: #5c625e;
-      --border: #dde2de;
-      --accent: #1f8a62;
-      --accent-dim: #146b4b;
+      color-scheme: dark;
+      --bg: #0d0f0e;
+      --card: #151815;
+      --text: #f4fbf7;
+      --text-dim: #9aa39d;
+      --border: #2a302c;
       --mint: #c0ffee;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #17181a;
-        --bg-alt: #1d1f21;
-        --card: #212426;
-        --text: #eef1ef;
-        --text-dim: #a4aba6;
-        --border: #2d3133;
-        --accent: #c0ffee;
-        --accent-dim: #8de6c7;
-        --mint: #c0ffee;
-      }
+      --ink: #0d0f0e;
     }
 
     * {
@@ -46,113 +34,218 @@
     }
 
     body {
-      background:
-        radial-gradient(600px 320px at 15% -10%, color-mix(in srgb, var(--mint) 35%, transparent), transparent 70%),
-        radial-gradient(500px 500px at 100% 15%, color-mix(in srgb, var(--mint) 12%, transparent), transparent 70%),
-        radial-gradient(600px 400px at -5% 85%, color-mix(in srgb, var(--mint) 14%, transparent), transparent 70%),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
       line-height: 1.55;
     }
 
+    .display {
+      font-family: "Oswald", "Segoe UI", sans-serif;
+    }
+
     .wrap {
-      max-width: 1040px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 4rem 2rem 3rem;
+      padding: 0 1.5rem;
     }
 
     @media (min-width: 720px) {
       .wrap {
-        padding: 5rem 3rem 4rem;
+        padding: 0 3rem;
       }
     }
 
-    header.hero {
-      margin-bottom: 3rem;
+    /* top nav */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: linear-gradient(var(--bg), transparent);
     }
 
-    .domain {
-      font-family: "SF Mono", ui-monospace, Menlo, monospace;
-      font-size: 0.9rem;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-      margin-bottom: 0.75rem;
-    }
-
-    h1 {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin: 0 0 0.75rem;
-      letter-spacing: -0.01em;
-    }
-
-    .lede {
-      color: var(--text-dim);
-      font-size: 1.05rem;
-      max-width: 55ch;
-    }
-
-    section {
-      margin-bottom: 2.5rem;
-    }
-
-    h2 {
+    .topnav a {
+      font-family: "Oswald", sans-serif;
       font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       color: var(--text-dim);
-      margin: 0 0 1rem;
+      text-decoration: none;
     }
 
-    .card {
+    .topnav a:hover {
+      color: var(--mint);
+    }
+
+    /* hero */
+    .hero {
+      padding: 2rem 0 4rem;
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .name-piece {
+      font-family: "Oswald", sans-serif;
+      font-weight: 700;
+      font-size: clamp(3.5rem, 14vw, 9.5rem);
+      line-height: 0.85;
+      letter-spacing: -0.02em;
+      color: var(--mint);
+      white-space: nowrap;
+    }
+
+    .name-line {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--text-dim), transparent);
+      margin: 0 1rem;
+      min-width: 24px;
+    }
+
+    .marquee {
       position: relative;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
       overflow: hidden;
+      background: var(--mint);
+      border-radius: 999px;
+      margin: 0.5rem 0;
+      z-index: 2;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--mint), var(--accent));
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      white-space: nowrap;
+      animation: marquee-scroll 26s linear infinite;
+      padding: 0.55rem 0;
     }
 
+    .marquee-track span {
+      font-family: "Oswald", sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.8rem, 2vw, 1.05rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      padding-right: 1.2rem;
+    }
+
+    @keyframes marquee-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track {
+        animation: none;
+      }
+    }
+
+    .hero-sub {
+      margin: 2rem 0 0;
+      max-width: 46ch;
+      color: var(--text-dim);
+      font-size: 1.05rem;
+    }
+
+    .hero-sub .domain {
+      color: var(--mint);
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* split-word section bookends */
+    .split-section {
+      position: relative;
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .split-word {
+      display: block;
+      font-family: "Oswald", sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.75rem, 11vw, 6.5rem);
+      line-height: 0.85;
+      letter-spacing: -0.02em;
+      color: var(--mint);
+    }
+
+    .split-word.top {
+      text-align: left;
+    }
+
+    .split-word.bottom {
+      text-align: right;
+      margin-top: 2.5rem;
+    }
+
+    .split-content {
+      max-width: 720px;
+      margin: 2rem auto;
+    }
+
+    .group-label {
+      font-family: "Oswald", sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin: 2.5rem 0 1rem;
+    }
+
+    .group-label:first-child {
+      margin-top: 0;
+    }
+
+    /* cards */
     .proj-card {
       position: relative;
       display: block;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 6px;
       overflow: hidden;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transition: transform 0.35s ease, border-color 0.35s ease;
     }
 
     .proj-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.3);
+      border-color: var(--mint);
     }
 
     .proj-cover {
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--mint), var(--accent));
+      background: var(--mint);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .proj-cover span {
+      font-family: "Oswald", sans-serif;
       font-size: 2.75rem;
-      font-weight: 800;
-      color: #0f2620;
+      font-weight: 700;
+      color: var(--ink);
       letter-spacing: -0.02em;
       transition: transform 0.6s ease;
     }
@@ -167,13 +260,14 @@
 
     .proj-tag {
       display: inline-block;
-      font-size: 0.72rem;
+      font-family: "Oswald", sans-serif;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent-dim);
-      background: color-mix(in srgb, var(--mint) 45%, transparent);
-      border-radius: 999px;
-      padding: 0.2rem 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      background: var(--mint);
+      border-radius: 4px;
+      padding: 0.2rem 0.6rem;
       margin-bottom: 0.75rem;
     }
 
@@ -185,7 +279,7 @@
     }
 
     .proj-card:hover .proj-title {
-      color: var(--accent-dim);
+      color: var(--mint);
     }
 
     .proj-desc {
@@ -200,7 +294,7 @@
       gap: 0.4rem;
       font-size: 0.9rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--mint);
     }
 
     .proj-link svg {
@@ -221,7 +315,7 @@
 
     .proj-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.25rem;
       align-items: start;
     }
@@ -232,17 +326,11 @@
       gap: 1rem;
     }
 
-    @media (max-width: 560px) {
-      .mini-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
     .mini-card {
       display: block;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 6px;
       padding: 1.1rem;
       text-decoration: none;
       transition: border-color 0.15s, transform 0.15s;
@@ -273,47 +361,44 @@
     }
 
     .skill {
-      font-size: 0.85rem;
+      font-family: "Oswald", sans-serif;
+      font-size: 0.82rem;
       font-weight: 500;
-      color: var(--accent-dim);
-      background: color-mix(in srgb, var(--mint) 30%, var(--card));
+      letter-spacing: 0.03em;
+      color: var(--mint);
+      background: transparent;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 4px;
       padding: 0.4rem 0.85rem;
     }
 
     .about {
       display: flex;
-      gap: 1.25rem;
+      gap: 1.5rem;
       align-items: flex-start;
     }
 
     .avatar {
-      width: 88px;
-      height: 88px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--mint), var(--accent));
+      background: var(--mint);
       flex-shrink: 0;
       object-fit: contain;
       padding: 6px;
     }
 
-    .about-name {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin: 0 0 0.15rem;
-    }
-
     .about-role {
-      color: var(--text-dim);
-      font-size: 0.9rem;
-      margin: 0 0 0.6rem;
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin: 0 0 0.75rem;
     }
 
     .about-bio {
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       color: var(--text-dim);
-      margin: 0;
+      margin: 0 0 1.5rem;
     }
 
     .links {
@@ -326,14 +411,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text-dim);
       text-decoration: none;
-      transition: border-color 0.15s, color 0.15s, transform 0.15s;
+      transition: border-color 0.15s, color 0.15s, transform 0.15s, background 0.15s;
     }
 
     .links a svg {
@@ -343,8 +428,8 @@
 
     .links a:hover {
       border-color: var(--mint);
-      color: var(--accent-dim);
-      background: color-mix(in srgb, var(--mint) 30%, var(--card));
+      color: var(--ink);
+      background: var(--mint);
       transform: translateY(-2px);
     }
 
@@ -362,211 +447,234 @@
 
     footer {
       color: var(--text-dim);
-      font-size: 0.82rem;
-      padding-top: 1.5rem;
+      font-family: "Oswald", sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 3rem 0;
       border-top: 1px solid var(--border);
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <nav class="topnav wrap">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <header class="hero">
-      <div class="domain">xinkule.xyz</div>
-      <h1>My testing ground for building and shipping web products.</h1>
-      <p class="lede">
-        This domain is where I stand up and test multiple products at once — live
-        apps, ventures I'm involved in, and hackathon builds. Details on all of it
-        below, plus a bit about me and how to reach me.
+  <div class="wrap">
+    <header class="hero" id="top">
+      <div class="name-row">
+        <span class="name-piece">E</span>
+        <span class="name-line"></span>
+        <span class="name-piece">RIOL</span>
+      </div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>DEVELOPER • RESEARCHER • WEB3 BUILDER • PRODUCT TESTER • HACKATHON REGULAR • CURIOUS GENERALIST •
+            DEVELOPER • RESEARCHER • WEB3 BUILDER • PRODUCT TESTER • HACKATHON REGULAR • CURIOUS GENERALIST •</span>
+        </div>
+      </div>
+      <div class="name-row">
+        <span class="name-piece">L</span>
+        <span class="name-piece">OI</span>
+      </div>
+      <p class="hero-sub">
+        <span class="domain">xinkule.xyz</span>
+        My testing ground for building and shipping web products — live apps,
+        ventures I'm involved in, and hackathon builds.
       </p>
     </header>
 
-    <section>
-      <h2>What's live here</h2>
-      <div class="proj-grid">
-        <a class="proj-card" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
-          <div class="proj-cover"><span>OG</span></div>
-          <div class="proj-body">
-            <div class="proj-tag">Web app</div>
-            <h3 class="proj-title">OTea / GreyOne Ordering</h3>
-            <p class="proj-desc">
-              A point-of-sale and order-taking web app built for OTea and GreyOne — a
-              friend's tea brands. Handles orders, till/drawer close-outs, receipt
-              printing, and sales reporting across both brands from one system.
+    <section class="split-section" id="about">
+      <span class="split-word top display">AB</span>
+      <div class="split-content">
+        <div class="about">
+          <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="96" height="96">
+          <div>
+            <p class="about-role">Developer, researcher, and generally curious about whatever's next.</p>
+            <p class="about-bio">
+              I build and ship web products — from client work like the ordering app
+              below, to ventures like CCACC and ChainVibe KL, to weekend hackathon
+              builds. This domain is where most of it ends up live.
             </p>
-            <span class="proj-link">
-              Visit oteaxgreyone.xinkule.xyz
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
+            <div class="skills">
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">Python</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">TypeScript</span>
+              <span class="skill">Solidity</span>
+              <span class="skill">Oracle SQL</span>
+              <span class="skill">Databases</span>
+            </div>
           </div>
-        </a>
-      </div>
-      <p class="proj-note">
-        Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
-        maintain the ordering system for them.
-      </p>
-    </section>
-
-    <section>
-      <h2>Ventures I'm part of</h2>
-      <div class="proj-grid">
-        <a class="proj-card" href="https://ccacc.io" target="_blank" rel="noopener">
-          <div class="proj-cover"><span>CC</span></div>
-          <div class="proj-body">
-            <div class="proj-tag">Web3 hub</div>
-            <h3 class="proj-title">CCACC — Crypto, Compliance &amp; Corporate Center</h3>
-            <p class="proj-desc">
-              An innovation hub and Web3 ecosystem builder based in Kuala Lumpur —
-              compliance, back-office solutions, and workspace incubation connecting
-              the local crypto industry globally.
-            </p>
-            <span class="proj-link">
-              Visit ccacc.io
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </a>
-        <a class="proj-card" href="https://chainvibe.org" target="_blank" rel="noopener">
-          <div class="proj-cover"><span>CV</span></div>
-          <div class="proj-body">
-            <div class="proj-tag">Festival</div>
-            <h3 class="proj-title">ChainVibe KL 2026</h3>
-            <p class="proj-desc">
-              Kuala Lumpur's Web3 x AI Experience Hub and culture festival — main-stage
-              keynotes, live "vibe coding" builds, founder floors, and rooftop
-              culture/gaming events. July 25–26, 2026 at Millerz Square, Sky Garden.
-            </p>
-            <span class="proj-link">
-              Visit chainvibe.org
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section>
-      <h2>Hackathons &amp; side builds</h2>
-      <div class="mini-grid">
-        <a class="mini-card" href="https://sonar-dev3pack-v1.vercel.app/" target="_blank" rel="noopener">
-          <p class="mini-title">Sonar</p>
-          <p class="mini-desc">
-            Anti-scam tool — paste a wallet address or URL to check for scam
-            history, with a voice warning to interrupt impulsive transfers.
-          </p>
-        </a>
-        <a class="mini-card" href="https://github.com/YapHongSanHansen/2026CodexHackathon" target="_blank" rel="noopener">
-          <p class="mini-title">Halal Boleh Cert</p>
-          <p class="mini-desc">
-            Codex Hackathon project — a compliance verification tool to check and
-            issue "Halal Boleh" certifications for products and protocols.
-          </p>
-        </a>
-        <a class="mini-card" href="https://github.com/Eriol-0406/imaginehack26" target="_blank" rel="noopener">
-          <p class="mini-title">HR Synergy Allocation</p>
-          <p class="mini-desc">
-            ImagineHack '26 project — matches and allocates team members based on
-            role compatibility and synergy, modeled on MLBB-style team comps.
-          </p>
-        </a>
-        <a class="mini-card" href="https://github.com/Eriol-0406/telegram-bot-company" target="_blank" rel="noopener">
-          <p class="mini-title">Community Welcome Bot</p>
-          <p class="mini-desc">
-            A Telegram bot that greets newcomers and automates moderation in
-            community group chats.
-          </p>
-        </a>
-      </div>
-    </section>
-
-    <section>
-      <h2>Skills</h2>
-      <div class="skills">
-        <span class="skill">HTML</span>
-        <span class="skill">CSS</span>
-        <span class="skill">Python</span>
-        <span class="skill">JavaScript</span>
-        <span class="skill">TypeScript</span>
-        <span class="skill">Solidity</span>
-        <span class="skill">Oracle SQL</span>
-        <span class="skill">Databases</span>
-      </div>
-    </section>
-
-    <section>
-      <h2>About</h2>
-      <div class="card about">
-        <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="88" height="88">
-        <div>
-          <p class="about-name">Eriol Loi</p>
-          <p class="about-role">Developer, researcher, and generally curious about whatever's next</p>
-          <p class="about-bio">
-            I build and ship web products — from client work like the ordering app
-            above, to ventures like CCACC and ChainVibe KL, to weekend hackathon
-            builds. This domain is where most of it ends up live. Get in touch
-            through any of the links below.
-          </p>
         </div>
       </div>
+      <span class="split-word bottom display">OUT</span>
     </section>
 
-    <section>
-      <h2>Contact</h2>
-      <div class="links">
-        <a href="mailto:eriolloi1118@gmail.com" title="Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          <span class="sr-only">Email</span>
-        </a>
-        <a href="https://github.com/Eriol-0406" target="_blank" rel="noopener" title="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.46-1.19-1.11-1.51-1.11-1.51-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.29 9.29 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z" />
-          </svg>
-          <span class="sr-only">GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/huai-en-loi-bb7aa731a/" target="_blank" rel="noopener" title="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-3.96 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48z" />
-          </svg>
-          <span class="sr-only">LinkedIn</span>
-        </a>
-        <a href="https://www.instagram.com/eriol_lhe/" target="_blank" rel="noopener" title="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-          </svg>
-          <span class="sr-only">Instagram</span>
-        </a>
-        <a href="https://x.com/lheWp20" target="_blank" rel="noopener" title="X (Twitter)">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.2 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2zm-1.2 18h1.9L7.4 4H5.4l12.3 16z" />
-          </svg>
-          <span class="sr-only">X (Twitter)</span>
-        </a>
+    <section class="split-section" id="work">
+      <span class="split-word top display">WO</span>
+      <div class="split-content">
+        <h3 class="group-label">Live app</h3>
+        <div class="proj-grid">
+          <a class="proj-card" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
+            <div class="proj-cover"><span>OG</span></div>
+            <div class="proj-body">
+              <div class="proj-tag">Web app</div>
+              <h4 class="proj-title">OTea / GreyOne Ordering</h4>
+              <p class="proj-desc">
+                A point-of-sale and order-taking web app built for OTea and GreyOne — a
+                friend's tea brands. Handles orders, till/drawer close-outs, receipt
+                printing, and sales reporting across both brands from one system.
+              </p>
+              <span class="proj-link">
+                Visit oteaxgreyone.xinkule.xyz
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+        <p class="proj-note">
+          Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
+          maintain the ordering system for them.
+        </p>
+
+        <h3 class="group-label">Ventures I'm part of</h3>
+        <div class="proj-grid">
+          <a class="proj-card" href="https://ccacc.io" target="_blank" rel="noopener">
+            <div class="proj-cover"><span>CC</span></div>
+            <div class="proj-body">
+              <div class="proj-tag">Web3 hub</div>
+              <h4 class="proj-title">CCACC — Crypto, Compliance &amp; Corporate Center</h4>
+              <p class="proj-desc">
+                An innovation hub and Web3 ecosystem builder based in Kuala Lumpur —
+                compliance, back-office solutions, and workspace incubation connecting
+                the local crypto industry globally.
+              </p>
+              <span class="proj-link">
+                Visit ccacc.io
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+          <a class="proj-card" href="https://chainvibe.org" target="_blank" rel="noopener">
+            <div class="proj-cover"><span>CV</span></div>
+            <div class="proj-body">
+              <div class="proj-tag">Festival</div>
+              <h4 class="proj-title">ChainVibe KL 2026</h4>
+              <p class="proj-desc">
+                Kuala Lumpur's Web3 x AI Experience Hub and culture festival — main-stage
+                keynotes, live "vibe coding" builds, founder floors, and rooftop
+                culture/gaming events. July 25–26, 2026 at Millerz Square, Sky Garden.
+              </p>
+              <span class="proj-link">
+                Visit chainvibe.org
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+
+        <h3 class="group-label">Hackathons &amp; side builds</h3>
+        <div class="mini-grid">
+          <a class="mini-card" href="https://sonar-dev3pack-v1.vercel.app/" target="_blank" rel="noopener">
+            <p class="mini-title">Sonar</p>
+            <p class="mini-desc">
+              Anti-scam tool — paste a wallet address or URL to check for scam
+              history, with a voice warning to interrupt impulsive transfers.
+            </p>
+          </a>
+          <a class="mini-card" href="https://github.com/YapHongSanHansen/2026CodexHackathon" target="_blank"
+            rel="noopener">
+            <p class="mini-title">Halal Boleh Cert</p>
+            <p class="mini-desc">
+              Codex Hackathon project — a compliance verification tool to check and
+              issue "Halal Boleh" certifications for products and protocols.
+            </p>
+          </a>
+          <a class="mini-card" href="https://github.com/Eriol-0406/imaginehack26" target="_blank" rel="noopener">
+            <p class="mini-title">HR Synergy Allocation</p>
+            <p class="mini-desc">
+              ImagineHack '26 project — matches and allocates team members based on
+              role compatibility and synergy, modeled on MLBB-style team comps.
+            </p>
+          </a>
+          <a class="mini-card" href="https://github.com/Eriol-0406/telegram-bot-company" target="_blank"
+            rel="noopener">
+            <p class="mini-title">Community Welcome Bot</p>
+            <p class="mini-desc">
+              A Telegram bot that greets newcomers and automates moderation in
+              community group chats.
+            </p>
+          </a>
+        </div>
       </div>
+      <span class="split-word bottom display">RK</span>
+    </section>
+
+    <section class="split-section" id="contact">
+      <span class="split-word top display">CONTA</span>
+      <div class="split-content">
+        <div class="links">
+          <a href="mailto:eriolloi1118@gmail.com" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <span class="sr-only">Email</span>
+          </a>
+          <a href="https://github.com/Eriol-0406" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.21-3.37-1.21-.46-1.19-1.11-1.51-1.11-1.51-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.29 9.29 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z" />
+            </svg>
+            <span class="sr-only">GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/huai-en-loi-bb7aa731a/" target="_blank" rel="noopener"
+            title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-3.96 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48z" />
+            </svg>
+            <span class="sr-only">LinkedIn</span>
+          </a>
+          <a href="https://www.instagram.com/eriol_lhe/" target="_blank" rel="noopener" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            <span class="sr-only">Instagram</span>
+          </a>
+          <a href="https://x.com/lheWp20" target="_blank" rel="noopener" title="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.6-6.9L4.2 22H1l8.1-9.3L.9 2H8.2l5.1 6.4L18.9 2zm-1.2 18h1.9L7.4 4H5.4l12.3 16z" />
+            </svg>
+            <span class="sr-only">X (Twitter)</span>
+          </a>
+        </div>
+      </div>
+      <span class="split-word bottom display">CT</span>
     </section>
 
     <footer>
       © 2026 Eriol Loi · xinkule.xyz
     </footer>
-
   </div>
 </body>
 
