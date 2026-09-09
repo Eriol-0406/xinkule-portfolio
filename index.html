@@ -365,31 +365,60 @@
       letter-spacing: 0.02em;
     }
 
-    /* section heading: the two word-halves sit side by side on one line,
-       compact, centered — matching the reference (Ab/UT, Portf/Lio, c/ntact
-       all render on a single row each, not stacked as top/bottom bookends) */
+    /* each section is a native <details> accordion — collapsed by default,
+       the whole word (ABOUT / WORK / CONTACT) sits on one line with its O
+       rendered as a solid clickable dot, matching the reference: clicking
+       the O pops the section's content open rather than showing it always */
     .split-section {
       position: relative;
-      padding: 2.5rem 0;
+      padding: 1.75rem 0;
       border-top: 1px solid var(--border);
     }
 
     .split-heading {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 0.25em;
-      margin-bottom: 1.5rem;
+      display: block;
+      list-style: none;
+      cursor: pointer;
       text-align: center;
-    }
-
-    .split-word {
       font-family: "Oswald", sans-serif;
       font-weight: 700;
       font-size: clamp(2.25rem, 8vw, 4.75rem);
       line-height: 0.85;
       letter-spacing: -0.02em;
       color: var(--accent-text);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .split-heading::-webkit-details-marker {
+      display: none;
+    }
+
+    .split-heading::marker {
+      content: "";
+    }
+
+    .word-o {
+      display: inline-block;
+      width: 0.62em;
+      height: 0.62em;
+      border-radius: 50%;
+      background: var(--accent-text);
+      margin: 0 0.02em;
+      vertical-align: -0.04em;
+      transition: transform 0.25s ease, background-color var(--theme-transition);
+    }
+
+    .split-heading:hover .word-o {
+      transform: scale(1.15);
+    }
+
+    .split-section[open] .word-o {
+      background: var(--mint);
+      transform: scale(0.85);
+    }
+
+    .split-content {
+      overflow: hidden;
     }
 
     /* scroll-triggered reveal, wired up via IntersectionObserver in JS */
@@ -399,20 +428,8 @@
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .split-heading.reveal .split-word:first-child {
-      transform: translateX(-24px);
-    }
-
-    .split-heading.reveal .split-word:last-child {
-      transform: translateX(24px);
-    }
-
     .reveal.in-view {
       opacity: 1;
-      transform: none;
-    }
-
-    .reveal.in-view .split-word {
       transform: none;
     }
 
@@ -770,11 +787,8 @@
       </p>
     </header>
 
-    <section class="split-section" id="about">
-      <div class="split-heading reveal">
-        <span class="split-word display">AB</span>
-        <span class="split-word display">OUT</span>
-      </div>
+    <details class="split-section" id="about">
+      <summary class="split-heading display reveal">AB<span class="word-o" aria-hidden="true"></span>UT</summary>
       <div class="split-content reveal">
         <div class="about">
           <span class="avatar-frame">
@@ -800,13 +814,10 @@
           </div>
         </div>
       </div>
-    </section>
+    </details>
 
-    <section class="split-section" id="work">
-      <div class="split-heading reveal">
-        <span class="split-word display">WO</span>
-        <span class="split-word display">RK</span>
-      </div>
+    <details class="split-section" id="work">
+      <summary class="split-heading display reveal">W<span class="word-o" aria-hidden="true"></span>RK</summary>
       <div class="split-content reveal">
         <h3 class="group-label">Live app</h3>
         <div class="proj-grid">
@@ -911,13 +922,10 @@
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
-    <section class="split-section" id="contact">
-      <div class="split-heading reveal">
-        <span class="split-word display">CONTA</span>
-        <span class="split-word display">CT</span>
-      </div>
+    <details class="split-section" id="contact">
+      <summary class="split-heading display reveal">C<span class="word-o" aria-hidden="true"></span>NTACT</summary>
       <div class="split-content reveal">
         <div class="links">
           <a href="mailto:eriolloi1118@gmail.com" title="Email">
@@ -960,7 +968,7 @@
           </a>
         </div>
       </div>
-    </section>
+    </details>
 
     <footer>
       © 2026 Eriol Loi · xinkule.xyz
@@ -984,6 +992,7 @@
       link.addEventListener('click', function () {
         var target = document.querySelector(link.getAttribute('href'));
         if (!target) return;
+        if (target.tagName === 'DETAILS') target.open = true;
         var els = target.querySelectorAll('.reveal');
         els.forEach(function (el) { el.classList.remove('in-view'); });
         // IntersectionObserver only refires on a threshold crossing, so if the
