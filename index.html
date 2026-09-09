@@ -135,6 +135,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.6rem;
+      max-width: 620px;
+      margin: 0 auto;
       font-size: clamp(3.5rem, 14vw, 9.5rem);
     }
 
@@ -292,7 +294,8 @@
       overflow: hidden;
       background: var(--mint);
       border-radius: 999px;
-      margin: 0.5rem 0;
+      max-width: 620px;
+      margin: 0.5rem auto;
       z-index: 2;
       opacity: 0;
       transform: scaleX(0.85);
@@ -436,6 +439,32 @@
     .split-section[open] .word-o-knob {
       transform: scale(1);
       left: 30%;
+    }
+
+    /* the Contact O carries a message instead of a knob when open */
+    .word-o-msg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Oswald", sans-serif;
+      font-size: 0.28em;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: var(--ink);
+      opacity: 0;
+      transition: opacity 0.25s ease 0.2s;
+    }
+
+    .split-section[open] .word-o--msg {
+      width: 7.5em;
+    }
+
+    .split-section[open] .word-o--msg .word-o-msg {
+      opacity: 1;
     }
 
     .split-content {
@@ -711,6 +740,7 @@
     .skills {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 0.6rem;
     }
 
@@ -728,14 +758,16 @@
 
     .about {
       display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      text-align: center;
     }
 
     .avatar-frame {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
+      width: 200px;
+      height: 320px;
+      border-radius: 999px;
       background: var(--mint);
       flex-shrink: 0;
       overflow: hidden;
@@ -745,8 +777,7 @@
     .avatar {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      padding: 6px;
+      object-fit: cover;
       box-sizing: border-box;
       transition: transform 0.2s ease-out;
       will-change: transform;
@@ -760,20 +791,16 @@
 
     .about-role {
       color: var(--text);
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      margin: 0 0 0.75rem;
-    }
-
-    .about-bio {
-      font-size: 0.98rem;
-      color: var(--text-dim);
-      margin: 0 0 1.5rem;
+      max-width: 40ch;
+      margin: 0;
     }
 
     .links {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 0.75rem;
     }
 
@@ -877,25 +904,18 @@
       <div class="split-content reveal">
         <div class="about">
           <span class="avatar-frame">
-            <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="96" height="96">
+            <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="200" height="320">
           </span>
-          <div>
-            <p class="about-role">Developer, researcher, and generally curious about whatever's next.</p>
-            <p class="about-bio">
-              I build and ship web products — from client work like the ordering app
-              below, to ventures like CCACC and ChainVibe KL, to weekend hackathon
-              builds. This domain is where most of it ends up live.
-            </p>
-            <div class="skills">
-              <span class="skill">HTML</span>
-              <span class="skill">CSS</span>
-              <span class="skill">Python</span>
-              <span class="skill">JavaScript</span>
-              <span class="skill">TypeScript</span>
-              <span class="skill">Solidity</span>
-              <span class="skill">Oracle SQL</span>
-              <span class="skill">Databases</span>
-            </div>
+          <p class="about-role">Developer, researcher, and generally curious about whatever's next.</p>
+          <div class="skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">Python</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">TypeScript</span>
+            <span class="skill">Solidity</span>
+            <span class="skill">Oracle SQL</span>
+            <span class="skill">Databases</span>
           </div>
         </div>
       </div>
@@ -951,7 +971,8 @@
     </details>
 
     <details class="split-section" id="contact">
-      <summary class="split-heading display reveal">C<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>NTACT</summary>
+      <summary class="split-heading display reveal">C<span class="word-o word-o--msg" aria-hidden="true"><span
+            class="word-o-msg">How can I help?</span></span>NTACT</summary>
       <div class="split-content reveal">
         <div class="links">
           <a href="mailto:eriolloi1118@gmail.com" title="Email">
