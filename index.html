@@ -430,7 +430,10 @@
       transition: transform 0.3s ease 0.1s, left 0.35s ease;
     }
 
-    .split-heading:hover .word-o {
+    /* only scale the dot on hover while closed — once open, the pill is
+       already wide, and transform:scale doesn't reflow layout, so scaling
+       an already-expanded pill visually overlaps the neighbouring letters */
+    .split-section:not([open]) .split-heading:hover .word-o {
       transform: scale(1.08);
     }
 
@@ -900,7 +903,6 @@
       letter-spacing: 0.04em;
       text-align: center;
       padding: 3rem 0;
-      border-top: 1px solid var(--border);
     }
   </style>
 </head>
