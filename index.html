@@ -397,24 +397,45 @@
       content: "";
     }
 
+    /* the O: a solid dot the same height as the letters when closed, a wide
+       pill with a knob (matching the hero eyes) when the section is open */
     .word-o {
+      position: relative;
       display: inline-block;
-      width: 0.62em;
-      height: 0.62em;
+      width: 0.9em;
+      height: 0.9em;
       border-radius: 50%;
       background: var(--accent-text);
-      margin: 0 0.02em;
-      vertical-align: -0.04em;
-      transition: transform 0.25s ease, background-color var(--theme-transition);
+      vertical-align: -0.07em;
+      overflow: hidden;
+      transition: width 0.35s ease, border-radius 0.35s ease, background-color 0.35s ease, transform 0.2s ease;
+    }
+
+    .word-o-knob {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0.9em;
+      height: 0.9em;
+      border-radius: 50%;
+      background: var(--ink);
+      transform: scale(0);
+      transition: transform 0.3s ease 0.1s, left 0.35s ease;
     }
 
     .split-heading:hover .word-o {
-      transform: scale(1.15);
+      transform: scale(1.08);
     }
 
     .split-section[open] .word-o {
+      width: 2.6em;
+      border-radius: 999px;
       background: var(--mint);
-      transform: scale(0.85);
+    }
+
+    .split-section[open] .word-o-knob {
+      transform: scale(1);
+      left: 30%;
     }
 
     .split-content {
@@ -433,29 +454,13 @@
       transform: none;
     }
 
-    .proj-grid .reveal:nth-child(1) {
-      transition-delay: 0.05s;
-    }
-
-    .proj-grid .reveal:nth-child(2) {
-      transition-delay: 0.15s;
-    }
-
-    .mini-grid .reveal:nth-child(1) {
-      transition-delay: 0.05s;
-    }
-
-    .mini-grid .reveal:nth-child(2) {
-      transition-delay: 0.12s;
-    }
-
-    .mini-grid .reveal:nth-child(3) {
-      transition-delay: 0.19s;
-    }
-
-    .mini-grid .reveal:nth-child(4) {
-      transition-delay: 0.26s;
-    }
+    .pill-gallery .reveal:nth-child(1) { transition-delay: 0.02s; }
+    .pill-gallery .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .pill-gallery .reveal:nth-child(3) { transition-delay: 0.14s; }
+    .pill-gallery .reveal:nth-child(4) { transition-delay: 0.2s; }
+    .pill-gallery .reveal:nth-child(5) { transition-delay: 0.26s; }
+    .pill-gallery .reveal:nth-child(6) { transition-delay: 0.32s; }
+    .pill-gallery .reveal:nth-child(7) { transition-delay: 0.38s; }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal {
@@ -580,6 +585,86 @@
       font-size: 0.82rem;
       color: var(--text-dim);
       margin: 0.9rem 0 0;
+    }
+
+    /* horizontal scrolling gallery of pill-shaped project cards — matches the
+       reference's portfolio carousel; scroll position tracks cursor position
+       when hovering, dragging works too via native scroll */
+    .pill-gallery {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.5rem 0.25rem 1rem;
+      scrollbar-width: thin;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .pill-gallery:active {
+      cursor: grabbing;
+    }
+
+    .pill-card {
+      position: relative;
+      flex: 0 0 auto;
+      width: 220px;
+      height: 380px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--mint), var(--accent-text));
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.25rem 2rem;
+      transition: transform 0.35s ease;
+      scroll-snap-align: start;
+    }
+
+    .pill-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .pill-tag {
+      align-self: flex-start;
+      font-family: "Oswald", sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      background: color-mix(in srgb, var(--ink) 12%, transparent);
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .pill-mono {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Oswald", sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      color: var(--ink);
+      opacity: 0.4;
+    }
+
+    .pill-title {
+      font-family: "Oswald", sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .pill-card {
+        width: 180px;
+        height: 320px;
+      }
     }
 
     .proj-grid {
@@ -788,7 +873,7 @@
     </header>
 
     <details class="split-section" id="about">
-      <summary class="split-heading display reveal">AB<span class="word-o" aria-hidden="true"></span>UT</summary>
+      <summary class="split-heading display reveal">AB<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>UT</summary>
       <div class="split-content reveal">
         <div class="about">
           <span class="avatar-frame">
@@ -817,115 +902,56 @@
     </details>
 
     <details class="split-section" id="work">
-      <summary class="split-heading display reveal">W<span class="word-o" aria-hidden="true"></span>RK</summary>
+      <summary class="split-heading display reveal">W<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>RK</summary>
       <div class="split-content reveal">
-        <h3 class="group-label">Live app</h3>
-        <div class="proj-grid">
-          <a class="proj-card reveal" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
-            <div class="proj-cover"><span>OG</span></div>
-            <div class="proj-body">
-              <div class="proj-tag">Web app</div>
-              <h4 class="proj-title">OTea / GreyOne Ordering</h4>
-              <p class="proj-desc">
-                A point-of-sale and order-taking web app built for OTea and GreyOne — a
-                friend's tea brands. Handles orders, till/drawer close-outs, receipt
-                printing, and sales reporting across both brands from one system.
-              </p>
-              <span class="proj-link">
-                Visit oteaxgreyone.xinkule.xyz
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
-            </div>
+        <div class="pill-gallery" id="workGallery">
+          <a class="pill-card reveal" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
+            <span class="pill-tag">Web app</span>
+            <span class="pill-mono">OG</span>
+            <span class="pill-title">OTea / GreyOne Ordering</span>
+          </a>
+          <a class="pill-card reveal" href="https://ccacc.io" target="_blank" rel="noopener">
+            <span class="pill-tag">Web3 hub</span>
+            <span class="pill-mono">CC</span>
+            <span class="pill-title">CCACC</span>
+          </a>
+          <a class="pill-card reveal" href="https://chainvibe.org" target="_blank" rel="noopener">
+            <span class="pill-tag">Festival</span>
+            <span class="pill-mono">CV</span>
+            <span class="pill-title">ChainVibe KL 2026</span>
+          </a>
+          <a class="pill-card reveal" href="https://sonar-dev3pack-v1.vercel.app/" target="_blank" rel="noopener">
+            <span class="pill-tag">Hackathon</span>
+            <span class="pill-mono">SN</span>
+            <span class="pill-title">Sonar</span>
+          </a>
+          <a class="pill-card reveal" href="https://github.com/YapHongSanHansen/2026CodexHackathon" target="_blank"
+            rel="noopener">
+            <span class="pill-tag">Hackathon</span>
+            <span class="pill-mono">HB</span>
+            <span class="pill-title">Halal Boleh Cert</span>
+          </a>
+          <a class="pill-card reveal" href="https://github.com/Eriol-0406/imaginehack26" target="_blank" rel="noopener">
+            <span class="pill-tag">Hackathon</span>
+            <span class="pill-mono">HR</span>
+            <span class="pill-title">HR Synergy Allocation</span>
+          </a>
+          <a class="pill-card reveal" href="https://github.com/Eriol-0406/telegram-bot-company" target="_blank"
+            rel="noopener">
+            <span class="pill-tag">Bot</span>
+            <span class="pill-mono">TG</span>
+            <span class="pill-title">Community Welcome Bot</span>
           </a>
         </div>
         <p class="proj-note">
-          Note: OTea and GreyOne are my friend's tea brands, not mine — I built and
-          maintain the ordering system for them.
+          OTea and GreyOne are my friend's tea brands, not mine — I built and maintain
+          the ordering system for them. Drag or hover to scroll →
         </p>
-
-        <h3 class="group-label">Ventures I'm part of</h3>
-        <div class="proj-grid">
-          <a class="proj-card reveal" href="https://ccacc.io" target="_blank" rel="noopener">
-            <div class="proj-cover"><span>CC</span></div>
-            <div class="proj-body">
-              <div class="proj-tag">Web3 hub</div>
-              <h4 class="proj-title">CCACC — Crypto, Compliance &amp; Corporate Center</h4>
-              <p class="proj-desc">
-                An innovation hub and Web3 ecosystem builder based in Kuala Lumpur —
-                compliance, back-office solutions, and workspace incubation connecting
-                the local crypto industry globally.
-              </p>
-              <span class="proj-link">
-                Visit ccacc.io
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
-            </div>
-          </a>
-          <a class="proj-card reveal" href="https://chainvibe.org" target="_blank" rel="noopener">
-            <div class="proj-cover"><span>CV</span></div>
-            <div class="proj-body">
-              <div class="proj-tag">Festival</div>
-              <h4 class="proj-title">ChainVibe KL 2026</h4>
-              <p class="proj-desc">
-                Kuala Lumpur's Web3 x AI Experience Hub and culture festival — main-stage
-                keynotes, live "vibe coding" builds, founder floors, and rooftop
-                culture/gaming events. July 25–26, 2026 at Millerz Square, Sky Garden.
-              </p>
-              <span class="proj-link">
-                Visit chainvibe.org
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
-            </div>
-          </a>
-        </div>
-
-        <h3 class="group-label">Hackathons &amp; side builds</h3>
-        <div class="mini-grid">
-          <a class="mini-card reveal" href="https://sonar-dev3pack-v1.vercel.app/" target="_blank" rel="noopener">
-            <p class="mini-title">Sonar</p>
-            <p class="mini-desc">
-              Anti-scam tool — paste a wallet address or URL to check for scam
-              history, with a voice warning to interrupt impulsive transfers.
-            </p>
-          </a>
-          <a class="mini-card reveal" href="https://github.com/YapHongSanHansen/2026CodexHackathon" target="_blank"
-            rel="noopener">
-            <p class="mini-title">Halal Boleh Cert</p>
-            <p class="mini-desc">
-              Codex Hackathon project — a compliance verification tool to check and
-              issue "Halal Boleh" certifications for products and protocols.
-            </p>
-          </a>
-          <a class="mini-card reveal" href="https://github.com/Eriol-0406/imaginehack26" target="_blank" rel="noopener">
-            <p class="mini-title">HR Synergy Allocation</p>
-            <p class="mini-desc">
-              ImagineHack '26 project — matches and allocates team members based on
-              role compatibility and synergy, modeled on MLBB-style team comps.
-            </p>
-          </a>
-          <a class="mini-card reveal" href="https://github.com/Eriol-0406/telegram-bot-company" target="_blank"
-            rel="noopener">
-            <p class="mini-title">Community Welcome Bot</p>
-            <p class="mini-desc">
-              A Telegram bot that greets newcomers and automates moderation in
-              community group chats.
-            </p>
-          </a>
-        </div>
       </div>
     </details>
 
     <details class="split-section" id="contact">
-      <summary class="split-heading display reveal">C<span class="word-o" aria-hidden="true"></span>NTACT</summary>
+      <summary class="split-heading display reveal">C<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>NTACT</summary>
       <div class="split-content reveal">
         <div class="links">
           <a href="mailto:eriolloi1118@gmail.com" title="Email">
@@ -1056,6 +1082,23 @@
         } catch (e) { }
       });
     });
+
+    // work gallery: scroll position tracks cursor position while hovering,
+    // matching the reference's hover-scrub portfolio carousel
+    (function () {
+      var gallery = document.getElementById('workGallery');
+      if (!gallery) return;
+      var hovering = false;
+      gallery.addEventListener('mouseenter', function () { hovering = true; });
+      gallery.addEventListener('mouseleave', function () { hovering = false; });
+      gallery.addEventListener('mousemove', function (e) {
+        if (!hovering) return;
+        var r = gallery.getBoundingClientRect();
+        var fraction = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+        var maxScroll = gallery.scrollWidth - gallery.clientWidth;
+        gallery.scrollLeft = fraction * maxScroll;
+      });
+    })();
   </script>
 </body>
 
