@@ -9,8 +9,7 @@
     content="xinkule.xyz — Eriol Loi's testing ground for web products: the OTea/GreyOne ordering app, CCACC, ChainVibe KL, and hackathon builds.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     (function () {
       try {
@@ -374,15 +373,15 @@
        the O pops the section's content open rather than showing it always */
     .split-section {
       position: relative;
-      padding: 1.75rem 0;
-      border-top: 1px solid var(--border);
+      padding: 2.25rem 0;
     }
 
     .split-heading {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       list-style: none;
       cursor: pointer;
-      text-align: center;
       font-family: "Oswald", sans-serif;
       font-weight: 700;
       font-size: clamp(2.25rem, 8vw, 4.75rem);
@@ -390,6 +389,10 @@
       letter-spacing: -0.02em;
       color: var(--accent-text);
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .word-half {
+      white-space: nowrap;
     }
 
     .split-heading::-webkit-details-marker {
@@ -405,13 +408,14 @@
     .word-o {
       position: relative;
       display: inline-block;
+      flex-shrink: 0;
       width: 0.9em;
       height: 0.9em;
       border-radius: 50%;
       background: var(--accent-text);
       vertical-align: -0.07em;
       overflow: hidden;
-      transition: width 0.35s ease, border-radius 0.35s ease, background-color 0.35s ease, transform 0.2s ease;
+      transition: width 0.35s ease, height 0.35s ease, border-radius 0.35s ease, background-color 0.35s ease, transform 0.2s ease;
     }
 
     .word-o-knob {
@@ -457,6 +461,8 @@
       color: var(--ink);
       opacity: 0;
       transition: opacity 0.25s ease 0.2s;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     .split-section[open] .word-o--msg {
@@ -464,6 +470,31 @@
     }
 
     .split-section[open] .word-o--msg .word-o-msg {
+      opacity: 1;
+    }
+
+    /* the About O becomes the profile photo instead of a knob when open */
+    .word-o--photo .word-o-knob {
+      display: none;
+    }
+
+    .word-o-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.15s;
+    }
+
+    .split-section[open] .word-o--photo {
+      width: 3.4em;
+      height: 3.4em;
+      border-radius: 50%;
+    }
+
+    .split-section[open] .word-o--photo .word-o-photo {
       opacity: 1;
     }
 
@@ -483,13 +514,33 @@
       transform: none;
     }
 
-    .pill-gallery .reveal:nth-child(1) { transition-delay: 0.02s; }
-    .pill-gallery .reveal:nth-child(2) { transition-delay: 0.08s; }
-    .pill-gallery .reveal:nth-child(3) { transition-delay: 0.14s; }
-    .pill-gallery .reveal:nth-child(4) { transition-delay: 0.2s; }
-    .pill-gallery .reveal:nth-child(5) { transition-delay: 0.26s; }
-    .pill-gallery .reveal:nth-child(6) { transition-delay: 0.32s; }
-    .pill-gallery .reveal:nth-child(7) { transition-delay: 0.38s; }
+    .pill-gallery .reveal:nth-child(1) {
+      transition-delay: 0.02s;
+    }
+
+    .pill-gallery .reveal:nth-child(2) {
+      transition-delay: 0.08s;
+    }
+
+    .pill-gallery .reveal:nth-child(3) {
+      transition-delay: 0.14s;
+    }
+
+    .pill-gallery .reveal:nth-child(4) {
+      transition-delay: 0.2s;
+    }
+
+    .pill-gallery .reveal:nth-child(5) {
+      transition-delay: 0.26s;
+    }
+
+    .pill-gallery .reveal:nth-child(6) {
+      transition-delay: 0.32s;
+    }
+
+    .pill-gallery .reveal:nth-child(7) {
+      transition-delay: 0.38s;
+    }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal {
@@ -501,7 +552,7 @@
 
     .split-content {
       max-width: 720px;
-      margin: 0 auto;
+      margin: 2rem auto 0;
     }
 
     .group-label {
@@ -900,12 +951,16 @@
     </header>
 
     <details class="split-section" id="about">
-      <summary class="split-heading display reveal">AB<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>UT</summary>
+      <summary class="split-heading display reveal">
+        <span class="word-half">AB</span>
+        <span class="word-o word-o--photo" aria-hidden="true">
+          <span class="word-o-knob"></span>
+          <img class="word-o-photo" src="images/avatar.png" alt="">
+        </span>
+        <span class="word-half">UT</span>
+      </summary>
       <div class="split-content reveal">
         <div class="about">
-          <span class="avatar-frame">
-            <img class="avatar" src="images/avatar.png" alt="Eriol Loi" width="200" height="320">
-          </span>
           <p class="about-role">Developer, researcher, and generally curious about whatever's next.</p>
           <div class="skills">
             <span class="skill">HTML</span>
@@ -922,7 +977,13 @@
     </details>
 
     <details class="split-section" id="work">
-      <summary class="split-heading display reveal">W<span class="word-o" aria-hidden="true"><span class="word-o-knob"></span></span>RK</summary>
+      <summary class="split-heading display reveal">
+        <span class="word-half">W</span>
+        <span class="word-o" aria-hidden="true">
+          <span class="word-o-knob"></span>
+        </span>
+        <span class="word-half">RK</span>
+      </summary>
       <div class="split-content reveal">
         <div class="pill-gallery" id="workGallery">
           <a class="pill-card reveal" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
@@ -971,8 +1032,13 @@
     </details>
 
     <details class="split-section" id="contact">
-      <summary class="split-heading display reveal">C<span class="word-o word-o--msg" aria-hidden="true"><span
-            class="word-o-msg">How can I help?</span></span>NTACT</summary>
+      <summary class="split-heading display reveal">
+        <span class="word-half">C</span>
+        <span class="word-o word-o--msg" aria-hidden="true">
+          <span class="word-o-msg">How can I help?</span>
+        </span>
+        <span class="word-half">NTACT</span>
+      </summary>
       <div class="split-content reveal">
         <div class="links">
           <a href="mailto:eriolloi1118@gmail.com" title="Email">
@@ -990,8 +1056,7 @@
             </svg>
             <span class="sr-only">GitHub</span>
           </a>
-          <a href="https://www.linkedin.com/in/huai-en-loi-bb7aa731a/" target="_blank" rel="noopener"
-            title="LinkedIn">
+          <a href="https://www.linkedin.com/in/huai-en-loi-bb7aa731a/" target="_blank" rel="noopener" title="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-3.96 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.68-2.91V8.48z" />
