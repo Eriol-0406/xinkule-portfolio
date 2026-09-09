@@ -88,7 +88,7 @@
     }
 
     .wrap {
-      max-width: 1100px;
+      max-width: 1440px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
@@ -558,6 +558,12 @@
       margin: 2rem auto 0;
     }
 
+    /* Work's gallery needs real width to show more than 2-3 cards at once —
+       exempt it from the 720px reading-width cap used by About/Contact text */
+    .split-content--wide {
+      max-width: 100%;
+    }
+
     .group-label {
       font-family: "Oswald", sans-serif;
       font-size: 0.8rem;
@@ -665,9 +671,10 @@
     }
 
     .proj-note {
+      max-width: 720px;
       font-size: 0.82rem;
       color: var(--text-dim);
-      margin: 0.9rem 0 0;
+      margin: 0.9rem auto 0;
     }
 
     /* horizontal scrolling gallery of pill-shaped project cards — matches the
@@ -691,8 +698,8 @@
     .pill-card {
       position: relative;
       flex: 0 0 auto;
-      width: 220px;
-      height: 380px;
+      width: 260px;
+      height: 430px;
       border-radius: 999px;
       overflow: hidden;
       background: linear-gradient(160deg, var(--mint), var(--accent-text));
@@ -986,7 +993,7 @@
         </span>
         <span class="word-half">RK</span>
       </summary>
-      <div class="split-content reveal">
+      <div class="split-content split-content--wide reveal">
         <div class="pill-gallery" id="workGallery">
           <a class="pill-card reveal" href="https://oteaxgreyone.xinkule.xyz" target="_blank" rel="noopener">
             <span class="pill-tag">Web app</span>
