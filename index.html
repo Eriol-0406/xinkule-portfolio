@@ -284,6 +284,21 @@
       width: auto;
     }
 
+    /* top row: short connector line, the O pill soaks up the slack so E and RI
+       sit close together */
+    .row-top .name-line {
+      flex: none;
+      width: 0.12em;
+      margin: 0 0.1rem;
+      min-width: 0;
+    }
+
+    .row-top .eye {
+      flex: 1;
+      width: auto;
+      min-width: 0;
+    }
+
     .name-line {
       flex: 1;
       height: 2px;
@@ -1143,38 +1158,27 @@
       });
     });
 
-    // cursor-tracking: the hero "O" eyes and the avatar both look toward the pointer,
-    // mirroring the reference site's tracking eye pupils
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var avatarImg = document.querySelector('.avatar');
-      var avatarFrame = document.querySelector('.avatar-frame');
-      var eyePupils = document.querySelectorAll('.eye-pupil');
-      var ticking = false;
+    // hero O pills: the knob slides along the track following the cursor's
+    // horizontal position across the whole window (not just while over the pill)
+    var eyePupils = document.querySelectorAll('.eye-pupil');
+    var ticking = false;
+    var lastX = null;
 
-      document.addEventListener('mousemove', function (e) {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () {
-          if (avatarImg && avatarFrame) {
-            var r = avatarFrame.getBoundingClientRect();
-            var cx = r.left + r.width / 2;
-            var cy = r.top + r.height / 2;
-            var dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 220));
-            var dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 220));
-            avatarImg.style.transform = 'translate(' + (dx * 7) + 'px, ' + (dy * 7) + 'px)';
-          }
-          eyePupils.forEach(function (pupil) {
-            // pill-shaped track: the knob slides left-right along it toward the cursor,
-            // like a toggle switch's thumb — not a small circular pupil anymore
-            var track = pupil.parentElement.getBoundingClientRect();
-            var travel = Math.max(0, track.width - track.height);
-            var fraction = Math.max(0, Math.min(1, (e.clientX - track.left) / track.width));
-            pupil.style.transform = 'translateX(' + (fraction * travel) + 'px)';
-          });
-          ticking = false;
-        });
+    function placePupils() {
+      eyePupils.forEach(function (pupil) {
+        var track = pupil.parentElement.getBoundingClientRect();
+        var travel = Math.max(0, track.width - track.height);
+        var fraction = lastX === null ? 0 : Math.max(0, Math.min(1, lastX / window.innerWidth));
+        pupil.style.transform = 'translateX(' + (fraction * travel) + 'px)';
       });
+      ticking = false;
     }
+
+    document.addEventListener('mousemove', function (e) {
+      lastX = e.clientX;
+      if (!ticking) { ticking = true; requestAnimationFrame(placePupils); }
+    });
+    window.addEventListener('resize', placePupils);
 
     // the "O" pills are the theme toggle, same as the reference site
     document.querySelectorAll('.theme-toggle').forEach(function (btn) {
