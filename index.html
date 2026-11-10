@@ -583,7 +583,7 @@
 
     .split-content {
       max-width: 720px;
-      margin: 2rem auto 0;
+      margin: 2.5rem auto 0;
     }
 
     /* Work's gallery needs real width to show more than 2-3 cards at once —
@@ -891,6 +891,8 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.75rem;
+      /* room for the 2px hover lift — .split-content clips overflow */
+      padding: 8px 0;
     }
 
     .links a {
@@ -1005,9 +1007,9 @@
             <span class="skill">Python</span>
             <span class="skill">JavaScript</span>
             <span class="skill">TypeScript</span>
-            <span class="skill">Solidity</span>
             <span class="skill">Oracle SQL</span>
-            <span class="skill">Databases</span>
+            <span class="skill">MongoDB</span>
+            <span class="skill">Solidity</span>
           </div>
         </div>
       </div>
