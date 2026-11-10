@@ -780,8 +780,51 @@
 
     @media (max-width: 560px) {
       .pill-card {
-        width: 180px;
-        height: 320px;
+        width: 72vw;
+        max-width: 280px;
+        height: 400px;
+      }
+
+      .pill-gallery {
+        scroll-snap-type: x mandatory;
+        padding-left: calc(50% - min(36vw, 140px));
+        padding-right: calc(50% - min(36vw, 140px));
+        scroll-padding: 0 calc(50% - min(36vw, 140px));
+        touch-action: pan-x pan-y;
+      }
+
+      .pill-card {
+        scroll-snap-align: center;
+      }
+
+      /* bigger tap targets in the nav */
+      .topnav {
+        justify-content: center;
+        gap: 0.25rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .topnav a {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+      }
+
+      /* open pills sized to fit a phone and keep the message legible */
+      .split-section[open] .word-o--photo {
+        width: 2.8em;
+        height: 2.8em;
+      }
+
+      .split-section[open] .word-o--msg {
+        width: 6.4em;
+      }
+
+      .word-o-msg {
+        font-size: 0.4em;
+      }
+
+      .split-section {
+        padding: 1.75rem 0;
       }
     }
 
@@ -1180,6 +1223,14 @@
       lastX = e.clientX;
       if (!ticking) { ticking = true; requestAnimationFrame(placePupils); }
     });
+    // phones: the knobs follow a finger as it touches or drags
+    function touchPupils(e) {
+      if (!e.touches.length) return;
+      lastX = e.touches[0].clientX;
+      if (!ticking) { ticking = true; requestAnimationFrame(placePupils); }
+    }
+    document.addEventListener('touchstart', touchPupils, { passive: true });
+    document.addEventListener('touchmove', touchPupils, { passive: true });
     window.addEventListener('resize', placePupils);
 
     // the "O" pills are the theme toggle, same as the reference site
@@ -1203,6 +1254,8 @@
       var gallery = document.getElementById('workGallery');
       if (!gallery) return;
       var hovering = false;
+      // touch devices swipe natively — the hover-scrub is for real mice only
+      if (!window.matchMedia('(hover: hover)').matches) return;
       gallery.addEventListener('mouseenter', function () { hovering = true; });
       gallery.addEventListener('mouseleave', function () { hovering = false; });
       gallery.addEventListener('mousemove', function (e) {
