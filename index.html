@@ -271,6 +271,19 @@
       gap: 0.15em;
     }
 
+    /* bottom row: let the O pill stretch to fill the space between L and I
+       instead of leaving a big empty gap after the L */
+    .row-bottom .name-cluster {
+      flex: 1;
+      min-width: 0;
+      gap: 0.6rem;
+    }
+
+    .row-bottom .eye {
+      flex: 1;
+      width: auto;
+    }
+
     .name-line {
       flex: 1;
       height: 2px;
